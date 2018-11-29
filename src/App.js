@@ -9,11 +9,6 @@ class App extends Component {
     this.state = { urls: [] };
   }
 
-  DisplayGifs = urls => {
-    var elem = document.querySelector(".App");
-    elem.innerHTML = urls.map(url => `<img src="${url}">`).join("\n");
-  };
-
   componentDidMount() {
     Jsonp(
       "https://www.reddit.com/r/SplitDepthGIFS/top.json?sort=top&t=all",
@@ -25,13 +20,16 @@ class App extends Component {
           .map(post => post.data.url)
           .filter(url => /gifv?$/.exec(url))
           .map(url => url.replace(/v$/, ""));
-        this.setState({ urls: posts }, this.DisplayGifs(posts));
+        this.setState({ urls: posts });
       }
     );
   }
 
   render() {
-    return <div className="App">GIFS GO HERE!!!</div>;
+    const images = this.state.urls.map((url, index) => {
+      return <img src={url} key={index} alt={url} />;
+    });
+    return <div className="App">{images}</div>;
   }
 }
 
