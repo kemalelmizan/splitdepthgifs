@@ -1,3 +1,7 @@
+## splitdepthgifs
+
+React version of [this](https://github.com/geelen/loopgifs)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
