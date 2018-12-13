@@ -6,7 +6,7 @@ import "./App.css";
 class App extends Component {
   constructor() {
     super();
-    this.state = { urls: [] };
+    this.state = { urls: [], currentImage: 0 };
   }
 
   componentDidMount() {
@@ -25,11 +25,35 @@ class App extends Component {
     );
   }
 
+  handleClick = () => {
+    this.setState({
+      currentImage:
+        this.state.currentImage === this.state.urls.length - 1
+          ? 0
+          : this.state.currentImage + 1
+    });
+  };
+
   render() {
     const images = this.state.urls.map((url, index) => {
-      return <img src={url} key={index} alt={url} />;
+      return (
+        <img
+          key={index}
+          src={url}
+          alt={url}
+          style={index === this.state.currentImage ? {} : { display: "none" }}
+        />
+      );
     });
-    return <div className="App">{images}</div>;
+    return (
+      <div
+        onClick={this.handleClick}
+        className="App"
+        style={{ paddingBottom: "500px" }}
+      >
+        {images}
+      </div>
+    );
   }
 }
 
