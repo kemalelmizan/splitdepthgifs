@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Jsonp from "jsonp";
+import LazyLoad from "react-lazyload";
 
 import "./App.css";
 
@@ -26,6 +27,7 @@ class App extends Component {
   }
 
   handleClick = () => {
+    console.log(this.state.currentImage);
     this.setState({
       currentImage:
         this.state.currentImage === this.state.urls.length - 1
@@ -37,12 +39,13 @@ class App extends Component {
   render() {
     const images = this.state.urls.map((url, index) => {
       return (
-        <img
-          key={index}
-          src={url}
-          alt={url}
-          style={index === this.state.currentImage ? {} : { display: "none" }}
-        />
+        <LazyLoad key={index} height={400}>
+          <img
+            src={url}
+            alt={url}
+            style={index === this.state.currentImage ? {} : { display: "none" }}
+          />
+        </LazyLoad>
       );
     });
     return (
